@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  mysql:
+    image: mysql
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    ports: ['3306:3306']
+    working_dir: /application
+    volumes:
+      - ./datas:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=symfony
+      - MYSQL_USER=symfony
+      - MYSQL_PASSWORD=password
+  php:
+    build: ./docker/php
+    ports: ['9000:9001']
+    links:
+      - mysql
+    volumes:
+      - ./symfony/:/var/www/symfony:cached
+  nginx:
+    build: ./docker/nginx
+    ports: ['80:80']
+    links:
+      - php
+    volumes:
+      - ./logs/nginx:/var/log/nginx:cached
+      - ./symfony/:/var/www/symfony:cached
