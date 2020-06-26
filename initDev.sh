@@ -1,5 +1,5 @@
 #!/bin/bash
 php bin/console doctrine:schema:drop --force
 php bin/console doctrine:schema:create
-yes | php bin/console doctrine:fixtures:load
+php bin/console doctrine:fixtures:load --no-interaction
 yarn encore dev
