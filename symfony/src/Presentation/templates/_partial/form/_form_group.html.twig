@@ -1,0 +1,40 @@
+{% if field.vars.id|default %}
+    {% set id = 'form_' ~ field.vars.id %}
+{% endif %}
+{% if field.vars.required|default %}
+    {% set required = field.vars.required %}
+{% endif %}
+<div{% if id|default %} id="{{ id }}"{% endif %} class="form-group{{ classeGroupe|default ? ' ' ~ classeGroupe }}{{ readonly|default ? ' readonly' }}{{ required|default ? ' required' }}">
+    <div class="form-field{{ classeField|default ? ' ' ~ classeField }}{{ required|default ? ' required' }}">
+        {%- block field -%}{% if field.vars|default %}{{ form_widget(field) }}{% endif %}{%- endblock -%}
+    </div>
+    {%- block label -%}
+        {% if field.vars.label|default %}
+            {{ form_label(field) }}
+        {% else %}
+            <div class="form-label{{ classeLabel|default ? ' ' ~ classeLabel }}">
+                {%- if tooltip|default -%}
+                    {%- include '_partial/feedback/_tooltip.html.twig' with {
+                        position: tooltip.position|default,
+                        classe: tooltip.classe|default,
+                        intitule: intitule|default|raw,
+                        contenu: tooltip is iterable ? tooltip.contenu|default : tooltip,
+                        classeContenu: tooltip.classeContenu|default('info'),
+                        icone: tooltip.icone|default('info'),
+                        classeIcone: classeIcone|default,
+                    } only -%}
+                {%- endif -%}
+                {%- if label|default -%}
+                    <span title="{{ label|striptags }}">{{ label|raw }}</span>
+                {%- endif -%}
+            </div>
+        {% endif %}
+    {%- endblock -%}
+</div>
+{% if help|default %}
+    <div class="form-info">
+        {% if help|default %}
+            <span class="helper-text">{{ help|raw }}</span>
+        {% endif %}
+    </div>
+{% endif %}

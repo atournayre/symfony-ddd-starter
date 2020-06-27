@@ -1,0 +1,13 @@
+{#{% include '_partial/modal/_modal_content.html.twig' with {#}
+{#    action: 'Refuser',#}
+{#    classeAction: classeAction|default('danger'),#}
+{#} only %}#}
+
+{% include '_partial/modal/_modal_confirmer.html.twig' with {
+    messageConfirmation: "Voulez-vous vraiment refuser ?"|e,
+    submit: true,
+    action: 'Refuser',
+    classeAction: classeAction|default('danger'),
+    urlFormulaire: urlFormulaire|default,
+    urlMajContent: urlMajContent|default,
+} only %}

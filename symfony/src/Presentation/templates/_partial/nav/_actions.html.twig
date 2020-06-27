@@ -1,0 +1,27 @@
+{% if actions|length > 1 %}
+    <a class="action dropdown-trigger" href="#!" data-target="item-{{ index|default('0') }}-dropdown" data-constrainwidth="false">
+        {% include '_partial/ui/_icone.html.twig' with {icone:'options'} only %}
+    </a>
+    <ul id="item-{{ index|default('0') }}-dropdown" class="dropdown-content" data-constrainwidth="false" tabindex="0">
+        {% for action in actions %}
+            {% if action.afficher is not defined or action.afficher %}
+                {% if action.classeModal|default %}
+                    {% set actionClasseModal = action.classeModal %}
+                {% elseif action.classe|default %}
+                    {% set actionClasseModal = action.classe %}
+                {% else %}
+                    {% set actionClasseModal = null %}
+                {% endif %}
+                {% if action.titre|default %}
+                    <li>
+                        {% include '_partial/nav/_action.html.twig' with {action: action} only %}
+                    </li>
+                {% else %}
+                    <li class="divider" tabindex="-1"></li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% else %}
+    {% include '_partial/nav/_action.html.twig' with {action: actions[0]} only %}
+{% endif %}

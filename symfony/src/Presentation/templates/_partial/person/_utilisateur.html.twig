@@ -1,0 +1,3 @@
+{% apply spaceless %}
+    <a{{ lien|default ? ' href=' ~ lien }} title="{{ nomContact|default('-') }}">{{ nomContact|default('-') }}</a>
+{% endapply %}

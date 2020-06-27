@@ -1,0 +1,5 @@
+<tr class="table-group-title{{ classe|default ? ' ' ~ classe }}{{ collapsed|default ? ' collapsed' }}"{% if dataGroup|default %} data-collapse="{{ dataGroup }}" title="{{ titre }}"{% endif %}>
+    <td colspan="{{ tableau|length }}" data-coltype="title">
+        <{{ elementTitre|default('span') }} class="group-title-text" title="{{ titre }}">{{ titre }}</{{ elementTitre|default('span') }}>
+    </td>
+</tr>

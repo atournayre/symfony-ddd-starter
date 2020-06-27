@@ -1,0 +1,9 @@
+{% include '_partial/modal/_modal_confirmer.html.twig' with {
+    messageConfirmation: "Voulez-vous vraiment supprimer cet élément ?"|e,
+    submit: true,
+    action: 'Supprimer',
+    classeAction: classeAction|default('danger'),
+    urlFormulaire: urlFormulaire|default,
+    urlMajContent: urlMajContent|default,
+    balise: balise|default,
+} only %}

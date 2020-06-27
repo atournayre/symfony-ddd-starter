@@ -1,0 +1,12 @@
+{% apply spaceless %}
+    <div class="contact-info">
+        {% if contactTelephone|default %}
+            <a href="tel:{{ contactTelephone|replace({' ':''}) }}" title="Appeler le {{ contactTelephone }}">
+                {{- contactTelephone -}}
+            </a><br>
+        {% endif %}
+        {% if contactEmail|default %}
+            <a href="mailto:{{ contactEmail }}" title="{{ contactEmail }}">{{- contactEmail -}}</a>
+        {% endif %}
+    </div>
+{% endapply %}

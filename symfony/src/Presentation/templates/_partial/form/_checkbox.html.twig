@@ -1,0 +1,6 @@
+<label class="checkbox">
+    <input id="{{ id|default(0) }}" type="checkbox" class="filled-in"{% if value|default %} value="{{ value }}"{% endif %}{% if checked|default %} checked{% endif %} />
+    <span>
+        {%- if label|default -%}<span class="value">{{ label }}</span>{%- endif -%}
+    </span>
+</label>

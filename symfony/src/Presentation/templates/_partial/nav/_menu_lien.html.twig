@@ -1,0 +1,8 @@
+<a href="{{ elementMenu.dropdown|default ? '#!' : elementMenu.lien|default('') }}"
+   class="waves-effect waves-dark{{ elementMenu.dropdown|default ? ' dropdown-trigger' }}{{ elementMenu.classe|default ? ' ' ~ elementMenu.classe }}{{ elementMenu.pastille|default ? ' chipped' }}"
+        {{ elementMenu.lienExterne|default ? ' target="_blank"' }}
+        {{ elementMenu.dropdown|default ? ' data-target=menu-' ~ elementMenu.nom ~ '-dropdown' }}
+   title="{{ elementMenu.titre }}">
+    <i class="material-icons" aria-hidden="true">{{ elementMenu.icone }}</i>
+    <span>{{ elementMenu.titre }}</span>
+</a>

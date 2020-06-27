@@ -1,0 +1,6 @@
+<label class="radio">
+    <input id="{{ id|default(name|default) }}" name="{{ name|default }}" type="radio" class="with-gap"{% if value|default %} value="{{ value }}"{% endif %}{% if checked|default %} checked{% endif %} />
+    <span>
+        {%- if label|default -%}<span class="value">{{ label }}</span>{%- endif -%}
+    </span>
+</label>

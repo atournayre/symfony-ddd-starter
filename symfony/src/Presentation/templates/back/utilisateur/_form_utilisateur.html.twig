@@ -1,0 +1,29 @@
+<div class="inline-label m3 xl2">
+    {{ form_start(form) }}
+    {{ form_row(form._token) }}
+    {{ form_row(form.civilite) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.organisme) }}
+    <div class="form-group">
+        {{ form_widget(form.utilisateur.email) }}
+        {{ form_label(form.utilisateur.email) }}
+    </div>
+    {{ form_row(form.emailOfficiel) }}
+    {{ form_row(form.telephone) }}
+    <div class="form-group">
+        <div class="form-field">
+            {{ form_widget(form.profil) }}
+            <div class="show-if-dirty warning">
+                <div class="icon-text">
+                    {% include '_partial/ui/_icone.html.twig' with {icone: 'warning'} only %}
+                    <span>Les droits d’accès spécifiques seront perdus.</span>
+                </div>
+            </div>
+        </div>
+        {{ form_label(form.profil) }}
+    </div>
+    {{ form_row(form.utilisateur.roles) }}
+    {{ form_row(form.isActif) }}
+</div>
+{% include '_partial/form/_js_check_dirty.html.twig' only %}

@@ -1,0 +1,8 @@
+<script>
+  let field = $('input, select, textarea');
+  if ($('.check-dirty').find(field).length > 0) {
+    field.on('change', function() {
+      $(this).closest('.form-group').addClass('dirty warning');
+    });
+  }
+</script>

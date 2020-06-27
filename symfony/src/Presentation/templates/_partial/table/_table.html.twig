@@ -1,0 +1,4 @@
+<table class="table{{ classe|default ? ' ' ~ classe }}">
+    {% include '_partial/table/_table_guide.html.twig' with {tableau: tableau} only %}
+    {% block tbody %}{% endblock %}
+</table>

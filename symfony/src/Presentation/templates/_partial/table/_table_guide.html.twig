@@ -1,0 +1,19 @@
+<tbody class="table-guide">
+    <tr>
+        {% set isArray = false %}
+        {% for colonne in tableau %}
+            {% apply spaceless %}
+                {% if not colonne.size|default %}
+                    {% set isArray = true %}
+                {% endif %}
+                {% if isArray %}
+                {% for sousColonne in colonne %}
+                    <td {% include '_partial/table/_table_colonnes.html.twig' with {colonne:sousColonne} only %}></td>
+                {% endfor %}
+                {% else %}
+                    <td {% include '_partial/table/_table_colonnes.html.twig' with {colonne:colonne} only %}></td>
+                {% endif %}
+            {% endapply %}
+        {% endfor %}
+    </tr>
+</tbody>

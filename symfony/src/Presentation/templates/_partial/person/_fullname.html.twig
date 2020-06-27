@@ -1,0 +1,10 @@
+{% apply spaceless %}
+    {% if nomContact is not defined %}
+        {% set nomContact %}
+            {{- utilisateur.civilite|default ? utilisateur.civilite ~ ' ' -}}
+            {{- utilisateur.prenom|default ? utilisateur.prenom ~ ' ' -}}
+            {{- utilisateur.nom|default ? utilisateur.nom|upper -}}
+        {% endset %}
+    {% endif %}
+    <a{{ lien|default ? ' href=' ~ lien }} title="{{ nomContact|default('-') }}">{{ nomContact|default('-') }}</a>
+{% endapply %}

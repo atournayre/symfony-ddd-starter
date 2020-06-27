@@ -1,0 +1,22 @@
+{% if colonne.size|default %}
+    data-colsize="{{ colonne.size }}"
+{% endif %}
+{% if class|default or colonne.class|default %}
+    class="{{ colonne.class|default ? colonne.class : class|default }}"
+{% endif %}
+{% if colonne.type|default and colonne.type == 'title' and resultats|default %}
+    data-coltype="results"
+    title="{{ resultats|length }} {{ intitule|default('résultat') }}{% if resultats|length > 1 %}s{% endif %}{{ suffixeIntitule|default ? ' ' ~ suffixeIntitule }}"
+{% elseif colonne.type|default %}
+    data-coltype="{{ colonne.type }}"
+{% endif %}
+{% if colonne.data|default %}
+    data-type="{{ colonne.data }}"
+{% endif %}
+{% if colonne.libelle|default and not libelleRiche|default(false) %}
+    {% if thead|default %}
+        title="{{ colonne.libelle|striptags }}"
+    {% else %}
+        data-title="{{ colonne.libelle|striptags }}"
+    {% endif %}
+{% endif %}

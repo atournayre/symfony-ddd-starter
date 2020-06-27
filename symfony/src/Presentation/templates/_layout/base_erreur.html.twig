@@ -1,0 +1,11 @@
+{% extends '_layout/base.html.twig' %}
+
+{% block bodyClass %}page-erreur page-error-container{% endblock %}
+
+{% block body %}
+     {% include '_partial/feedback/_erreur.html.twig' with {
+          titre: titre|default,
+          detail: detail|default,
+          classe: classe|default,
+     } only %}
+{% endblock %}

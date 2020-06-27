@@ -1,0 +1,26 @@
+{%- set classeWrapperCombinee -%}
+    page-header{{ classeWrapper|default ? ' ' ~ classeWrapper }}{{ sticky|default(true) ? ' sticky' }}
+{%- endset -%}
+
+{% embed '_partial/page/_section_header.html.twig' with {
+    classeWrapper: classeWrapperCombinee,
+    classe: classe|default,
+    icone: icone|default,
+    titleIcone: titleIcone|default,
+    titre: titre|default,
+    sousTitre: sousTitre|default,
+} only %}
+
+    {% block titre %}
+        {% include '_partial/page/_page_header_title.html.twig' with {
+            titre: titre|default,
+            sousTitre: sousTitre|default,
+        } %}
+    {% endblock %}
+
+    {% block actions %}
+        {% include '_partial/page/_page_search.html.twig' only %}
+        {% include '_partial/page/_page_filter_panel_trigger.html.twig' with {isActive: filtreActif|default} only %}
+    {% endblock %}
+
+{% endembed %}

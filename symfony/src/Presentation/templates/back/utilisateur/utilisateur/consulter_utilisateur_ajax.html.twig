@@ -1,0 +1,56 @@
+<section class="block">
+    <div class="block-body">
+        <div class="form-group readonly">
+            <div class="form-field">
+                {% if utilisateur.telephone|default %}
+                    <a href="tel:{{ utilisateur.telephone|replace({' ':''}) }}" title="Appeler le {{ utilisateur.telephone }}">{{ utilisateur.telephone }}</a>
+                {% else %}
+                    -
+                {% endif %}
+            </div>
+            <span class="form-label">Téléphone</span>
+        </div>
+        <div class="form-group readonly">
+            <div class="form-field">
+                {% if utilisateur.email|default %}
+                    <a href="mailto:{{ utilisateur.email }}"
+                       title="{{ utilisateur.email }}">
+                        {{ utilisateur.email }}
+                    </a>
+                {% else %}
+                    -
+                {% endif %}
+            </div>
+            <span class="form-label">Email</span>
+        </div>
+        <div class="form-group readonly">
+            <div class="form-field">
+                {% if utilisateur.nomOrganisme|default %}
+                    <a title="{{ utilisateur.nomOrganisme }}">{{ utilisateur.nomOrganisme }}</a>
+                {% else %}
+                    -
+                {% endif %}
+            </div>
+            <span class="form-label">Organisme</span>
+        </div>
+        <div class="form-group readonly">
+            <div class="form-field">
+                {% if utilisateur.roles|default|length > 0 %}
+                    <ul class="browser-default">
+                        {% for role in utilisateur.roles %}
+                            <li>{{ role }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    -
+                {% endif %}
+            </div>
+            <span class="form-label">Rôles</span>
+        </div>
+        <div class="form-group readonly">
+            <div class="form-field"><span>{% if utilisateur.isActif %}Oui{% else %}Non{% endif %}</span></div>
+            <span class="form-label">Actif</span>
+        </div>
+    </div>
+</section>
+<hr>

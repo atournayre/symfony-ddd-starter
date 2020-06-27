@@ -1,0 +1,14 @@
+<a class="dropdown-trigger helpdrop{% if classe|default %} {{ classe }}{% endif %}" href="#!" data-target="{{ id|default }}" title="{{ title|default("Cliquez pour plus d'infos") }}">
+    {%- if texte|default -%}
+        {{ texte|raw }}
+    {%- else -%}
+        {%- include '_partial/ui/_icone.html.twig' with {icone: icone|default('info'), classeIcone: classeIcone|default(classeContenu|default('info')) } only -%}
+    {%- endif -%}
+</a>
+<div id="{{ id|default }}" class="dropdown-content helpdrop{% if classeContenu|default %} {{ classeContenu }}{% endif %}">
+    <div class="inner"{% if width|default %} style="width: {{ width }};"{% endif %}>
+        {%- block contenu -%}
+            {{- contenu|default('Ici le contenu du dropdown !')|raw -}}
+        {%- endblock -%}
+    </div>
+</div>

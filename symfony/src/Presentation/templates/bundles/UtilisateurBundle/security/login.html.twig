@@ -1,0 +1,50 @@
+{% extends "_layout/base_auth.html.twig" %}
+
+{% block content %}
+    {% if app.user %}
+        <div class="contenu">
+            <div class="feedback center-align">
+                <div>Vous êtes connecté en tant que</div>
+                <div><strong>{{ app.user.username }}</strong>.</div>
+            </div>
+            <div class="form-footer">
+                <a href="{{ path('app_logout') }}" class="btn waves-effect waves-dark">Se déconnecter</a>
+            </div>
+        </div>
+    {% else %}
+        <form method="post">
+
+            {% if error %}<div class="feedback alert error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>{% endif %}
+
+            <div class="form-group">
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="fullwidth" placeholder="Email" required autofocus>
+                <label for="inputEmail">Email</label>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="form-group">
+                <input type="password" name="password" id="inputPassword" class="fullwidth" placeholder="Mot de passe" required>
+                <label for="inputPassword">Mot de passe</label>
+            </div>
+
+            {# Décommenter pour afficher l'option "Se souvenir de moi" #}
+
+            {#{% include '_partial/form/_checkbox.html.twig' with {#}
+            {#    name: '_remember_me',#}
+            {#    label: 'Se souvenir de moi',#}
+            {#} only %}#}
+
+            <div class="form-footer">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="form-submit">
+                    <button class="btn waves-effect waves-dark" type="submit">Se connecter</button>
+                </div>
+                <div class="login-help">
+                    <a href="{{ path('app_mdp_oublie') }}">Mot de passe oublié ?</a>
+                </div>
+            </div>
+
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}{% endblock %}

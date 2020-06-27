@@ -1,0 +1,22 @@
+<a href="{{ action.lien|default('#!') }}" {{ action.lienExterne|default(false) ? ' target="_blank"' }} class="action modal-trigger{{ action.classe|default ? ' ' ~ action.classe }}" title="{{ action.titre }}"
+        {% if action.titreModal is defined %}
+            onclick="(() => {
+                    window.dispatchEvent(new CustomEvent('modal.show_form', {
+                    detail: {
+                    title: '{{ action.titreModal|default }}',
+                    urlFormulaire: '{{ action.urlFormulaire|default }}',
+                    urlMajContent: '{{ action.urlMajContent|default }}',
+                    {% if action.balise is not null %}
+                            balise: '{{ action.balise }}',
+                    {% endif %}
+                    classeModal: '{{ action.classeModal|default }}',
+                    }
+                    }));
+                    })(); return false;"
+        {% endif %}
+>
+    {% include '_partial/ui/_icone.html.twig' with {icone:icone|default(action.icone)} only %}
+    {%- if action.titre|default -%}
+        <span>{{ action.titre }}</span>
+    {%- endif -%}
+</a>

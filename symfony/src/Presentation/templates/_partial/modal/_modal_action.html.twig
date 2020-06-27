@@ -1,0 +1,20 @@
+<{{ submit|default ? 'button' : 'a' }}{{ submit|default ? ' type="submit"' }}{{ lien|default ? ' href=' ~ lien }}
+    id="btn_annuler"
+    class="btn waves-effect waves-dark{{ submit|default ? '' : ' modal-close' }}{{ classe|default ? ' ' ~ classe : ' btn-flat' }}"
+    title="{{ titre|default('OK') }}"
+{% if urlFormulaire is defined and urlFormulaire is not null and urlMajContent is defined and urlMajContent is not null %}
+    onclick="(() => {
+        window.dispatchEvent(new CustomEvent('appelAjaxEvenement', {
+        detail: {
+        url: '{{ urlFormulaire }}',
+        urlMajContent: '{{ urlMajContent }}',
+        {% if balise is not null %}
+            balise: '{{ balise }}',
+        {% endif %}
+        }
+        }));
+        })()"
+{% endif %}
+>
+    {{ titre|default('OK') }}
+</{{ submit|default ? 'button' : 'a' }}>

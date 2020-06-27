@@ -1,0 +1,101 @@
+{% if action|default %}
+    {% set action = action %}
+{% elseif titre|default %}
+    {% set action = titre %}
+{% else %}
+    {% set action = '-' %}
+{% endif %}
+{% if classeModal|default %}
+    {% set classeModal = classeModal %}
+{% elseif classe|default %}
+    {% set classeModal = classe %}
+{% else %}
+    {% set classeModal = null %}
+{% endif %}
+<div id="fab-wrapper"
+     class="fixed-action-btn direction-top{% if options|default %}{{ icone|default == 'ajouter' ? ' fab-rotate45' }}{{ icone|default == 'plus' ? ' fab-rotate90' }}{{ label|default == true ? ' show-text' }}{% endif %}">
+    <a id="fab"
+            {% if not options|default %}
+                href="{{ lien|default('#!') }}" {{ lienExterne|default(false) ? ' target="_blank"' }}
+            {% endif %}
+       class="{{ lien|default ? 'modal-trigger ' }}btn-floating btn-large{{ classe|default ? ' ' ~ classe }}"
+       title="{{ action }}"
+            {% if not options|default and titreModal|default %}
+                onclick="(() => {
+                        window.dispatchEvent(new CustomEvent('modal.show_form', {
+                        detail: {
+                        title: '{{ titreModal }}',
+                        urlFormulaire: '{{ urlFormulaire|default }}',
+                        urlMajContent: '{{ urlMajContent|default }}',
+                        classeModal: '{{ classeModal|default }}',
+                        {% if balise|default %}
+                            balise: '{{ balise }}'
+                        {% endif %}
+                        }
+                        }));
+                        })(); return false;"
+            {% endif %}
+    >
+        {% include '_partial/ui/_icone.html.twig' with {icone:icone|default(action)} only %}
+        <span class="sr-only">{{ action }}</span>
+    </a>
+    {% if options|default %}
+        <ul>
+            {% for option in options %}
+                {% if option.afficher is not defined or option.afficher == true %}
+                    {% if option.action|default %}
+                        {% set optionAction = option.action %}
+                    {% elseif option.titre|default %}
+                        {% set optionAction = option.titre %}
+                    {% else %}
+                        {% set optionAction = '-' %}
+                    {% endif %}
+                    {% if option.classeModal|default %}
+                        {% set optionClasseModal = option.classeModal %}
+                    {% elseif option.classe|default %}
+                        {% set optionClasseModal = option.classe %}
+                    {% else %}
+                        {% set optionClasseModal = null %}
+                    {% endif %}
+                    {% if optionAction|default %}
+                        <li>
+                            <a
+                                    {% if option.lien|default %}
+                                        href="{{ option.lien|default('#!') }}" {{ option.lienExterne|default(false) ? ' target="_blank"' }}
+                                    {% endif %}
+                                    class="btn-floating{{ option.urlFormulaire|default ? ' modal-trigger' }}{{ option.classe|default ? ' ' ~ option.classe }}{{ option.label|default == true ? ' show-text' }}"
+                                    title="{{ optionAction }}"
+                                    {% if option.urlFormulaire|default %}
+                                        onclick="(() => {
+                                                window.dispatchEvent(new CustomEvent('modal.show_form', {
+                                                detail: {
+                                                title: '{{ option.titreModal|default }}',
+                                                urlFormulaire: '{{ option.urlFormulaire|default }}',
+                                                urlMajContent: '{{ option.urlMajContent|default }}',
+                                                balise: '{{ option.balise|default }}',
+                                                classeModal: '{{ optionClasseModal|default }}',
+                                                }
+                                                }));
+                                                })(); return false;"
+                                    {% endif %}
+                                    {% if option.formControl|default %}
+                                        onclick="(() => {
+                                    nextElementSibling.click();
+                                })(); return false;"
+                                    {% endif %}
+                            >
+                                {% include '_partial/ui/_icone.html.twig' with {icone:option.icone|default, classeIcone:option.classeIcone|default} only %}
+                                <span>{{ optionAction }}</span>
+                            </a>
+                            {% if option.formControl|default %}
+                                {{ option.formControl }}
+                            {% endif %}
+                        </li>
+                    {% else %}
+                        <li class="divider" tabindex="-1"></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>

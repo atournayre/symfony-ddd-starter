@@ -1,0 +1,42 @@
+{% embed '_partial/modal/_modal_content.html.twig' with {annuler: false, contenuFichier: contenuFichier, url: url} only %}
+
+    {% block content %}
+        {%- if contenuFichier|default -%}
+            <pre>
+            {% for ligne in contenuFichier %}
+                {{ ligne }}
+            {% endfor %}
+            </pre>
+        {%- else -%}
+            {% include '_partial/feedback/_erreur.html.twig' with {
+                classe: 'danger',
+                titre: "Oups ! Le fichier n'a pas été trouvé.",
+            } only %}
+        {%- endif -%}
+    {% endblock %}
+
+    {% block extraActions %}
+        {%- if contenuFichier|default -%}
+            <a class="action btn-flat btn-default" href="{{ app.request.schemeAndHttpHost }}{{ url }}" target="_blank">
+                {% include '_partial/ui/_icone.html.twig' with {icone: 'externe'} only %}
+                <span>Ouvrir le fichier</span>
+            </a>
+        {%- endif -%}
+    {% endblock %}
+
+    {% block actions %}
+        {%- if contenuFichier|default -%}
+            {% include '_partial/modal/_modal_action.html.twig' with {
+                submit: false,
+                classe: 'primary',
+                titre: 'Fermer',
+            } only %}
+        {%- else -%}
+            {% include '_partial/modal/_modal_action.html.twig' with {
+                submit: false,
+                titre: 'OK',
+            } only %}
+        {%- endif -%}
+    {% endblock %}
+
+{% endembed %}

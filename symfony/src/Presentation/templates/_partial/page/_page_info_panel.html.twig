@@ -1,0 +1,32 @@
+<div id="infoPanel" class="panel info-panel">
+    <div class="panel-header">
+        <h3 class="panel-title">
+            <span data-content="default">Informations</span>
+            <span data-content="contacts" style="display: none;">Contacts</span>
+            <span data-content="factures" style="display: none;">Factures</span>
+            <span data-content="statistiques" style="display: none;">Statistiques</span>
+        </h3>
+        <a class="panel-close" title="Fermer">
+            {% include '_partial/ui/_icone.html.twig' with {icone:'fermer'} only %}
+        </a>
+    </div>
+    <div class="panel-content">
+        <div data-content="default">
+            <p class="secondary-text">Veuillez sélectionner une information à afficher</p>
+        </div>
+        <div data-content="contacts" style="display:none;">
+            <div class="table-grid">
+                <div class="block-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque consectetur dicta doloremque eligendi facere illo inventore laborum laudantium maxime mollitia! Asperiores consequuntur cupiditate earum explicabo fugiat minus quia sint voluptates.</p>
+                </div>
+            </div>
+        </div>
+        <div data-content="factures" style="display:none;">
+            <p>Liste des factures</p>
+        </div>
+        <div data-content="statistiques" style="display:none;">
+            <p>Quelques statistiques</p>
+        </div>
+    </div>
+    <div class="panel-footer"></div>
+</div>

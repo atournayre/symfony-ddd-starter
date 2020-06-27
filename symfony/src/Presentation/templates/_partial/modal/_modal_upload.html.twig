@@ -1,0 +1,17 @@
+<div class="modal-content">
+    {% block content %}
+        {% include '_partial/upload/_upload_progress.html.twig' with { classeTermine: 'success' } only %}
+    {% endblock %}
+</div>
+{% apply spaceless %}
+    <div class="modal-footer">
+        <div>
+            {% block actions %}
+                {% include '_partial/modal/_modal_action.html.twig' with {
+                    submit: false,
+                    titre: 'OK',
+                } only %}
+            {% endblock %}
+        </div>
+    </div>
+{% endapply %}

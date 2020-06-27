@@ -1,0 +1,21 @@
+{% set triAscendant = true %}
+{% if sensDeTri|default and sensDeTri == 'DESC' %}
+    {% set triAscendant = false %}
+{% endif %}
+<div class="input-field sort-field">
+    {% if sensDeTri|default or sensDeTri is not defined %}
+        <a id="{{ id|default('page-sort') }}"
+           class="prefix btn waves-effect waves-effect-dark{{ triAscendant ? ' flip' }}"
+           title="Trier dans l'autre sens"
+        >
+            {% include '_partial/ui/_icone.html.twig' with {icone:icone|default('trier')} only %}
+        </a>
+    {% endif %}
+    {% if options|default|length > 0 %}
+        <select{% if options|length == 1 %} disabled{% endif %}>
+            {% for index, option in options %}
+                <option value="{{ index }}">{{ option }}</option>
+            {% endfor %}
+        </select>
+    {% endif %}
+</div>

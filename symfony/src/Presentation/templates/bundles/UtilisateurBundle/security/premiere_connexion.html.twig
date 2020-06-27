@@ -1,0 +1,31 @@
+{% extends "_layout/base_auth.html.twig" %}
+
+{% block title %}Première connexion{% endblock %}
+{% block h1 %}Première connexion{% endblock %}
+{% block content %}
+    <form method="post">
+        <div class="intro">
+            <div class="h4">Première connexion ?</div>
+            <p>Saisissez votre email ci-dessous pour recevoir les informations nécessaires à la création de votre mot de passe.</p>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" id="inputEmail" class="fullwidth" placeholder="Email" required autofocus>
+            <label for="inputEmail">Email</label>
+        </div>
+
+        <div class="form-footer">
+            <div class="form-submit">
+                <button class="btn waves-effect waves-dark" type="submit">Envoyer</button>
+            </div>
+        </div>
+
+    </form>
+{% endblock %}
+{% block footer %}
+    <footer class="back-nav">
+        <a href="{{ path('app_login') }}" class="btn-flat">
+            {% include '_partial/ui/_icone.html.twig' with {icone: 'retour'} only %}
+            <span>Retour</span>
+        </a>
+    </footer>
+{% endblock %}

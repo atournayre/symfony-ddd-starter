@@ -1,0 +1,8 @@
+<a class="tooltip-trigger tooltipped{% if classe|default %} {{ classe }}{% endif %}"{% if position|default %} data-position="{{ position }}"{% endif %} data-tooltip="<div class='tooltip{{ classeContenu|default(' info') }}'>{{ contenu|default|raw }}</div>">
+    {%- if icone is not defined or icone|default -%}
+        {%- include '_partial/ui/_icone.html.twig' with {icone: icone|default('info_outline'), classeIcone: classeIcone|default(classeContenu|default('info')) } only -%}
+    {%- endif -%}
+    {%- if intitule|default -%}
+        <span>{{ intitule|raw }}</span>
+    {%- endif -%}
+</a>

@@ -1,0 +1,8 @@
+<div class="switch">
+    <label class="checkbox">
+        {% if label_off|default %}<span class="label">{{ label_off }}</span>{% endif %}
+        <input id="{{ id|default(0) }}" type="checkbox"{% if value|default %} value="{{ value }}"{% endif %}{% if checked|default %} checked{% endif %} />
+        <span class="lever"></span>
+        {% if label_on|default %}<span class="label">{{ label_on }}</span>{% endif %}
+    </label>
+</div>

@@ -1,0 +1,382 @@
+{% extends 'form_div_layout.html.twig' %}
+
+
+
+{# ----- LABEL ----- #}
+
+{%- block form_label -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('')~' form-label')|trim}) -%}
+    {% apply spaceless %}        
+        <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %} for="{{ id }}">
+            {{- label|raw -}}
+        </{{ element|default('label') }}>
+    {% endapply %}
+{%- endblock form_label -%}
+
+
+
+{# ----- FORM ROW ----- #}
+
+{%- block form_row -%}
+    <div id="form_{{ id }}" class="form-group{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if errors|length > 0 %} has-error{% endif %}">
+        {{- form_widget(form) -}}
+        {{- form_label(form) -}}
+    </div>
+    {%- if help is not empty or errors|length > 0 -%}
+        <div class="form-info">
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    {% endif %}
+{%- endblock form_row -%}
+
+{%- block form_widget_compound -%}
+    {%- if form is rootform -%}
+        {{ form_errors(form) }}
+        {{- form_rest(form) -}}
+    {%- else -%}
+        <div class="form-wrapper">
+            {{- block('form_rows') -}}
+        </div>
+        {{- form_rest(form) -}}
+    {%- endif -%}
+{%- endblock form_widget_compound -%}
+
+
+
+{# ----- TEXTAREA ----- #}
+
+{%- block textarea_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ 'materialize-textarea')|trim}) %}
+    {{ parent() }}
+{%- endblock -%}
+
+
+
+{# ----- MONEY ----- #}
+
+{%- block money_widget -%}
+    {%- set prepend = not (money_pattern starts with '{{') -%}
+    {%- set append = not (money_pattern ends with '}}') -%}
+    {%- if prepend or append -%}
+        <span class="addon addon-money">{{ money_pattern|form_encode_currency }}</span>
+    {%- endif -%}
+    {{- form_widget(form) -}}
+{%- endblock money_widget -%}
+
+
+
+
+{# -- Number -- #}
+
+{%- block number_widget -%}
+    {# type="number" doesn't work with floats #}
+    {%- set type = type|default('number') -%}
+    {{ block('form_widget_simple') }}
+{%- endblock number_widget -%}
+
+
+
+{# ----- PERCENTAGE ----- #}
+
+{%- block percent_widget -%}
+    {%- set symbol = '%' -%}
+    {%- if symbol -%}
+        <span class="addon addon-percent">{{ symbol|default('%') }}</span>
+    {%- endif -%}
+    {{- form_widget(form) -}}
+{%- endblock percent_widget -%}
+
+
+
+{# ----- SEARCH ----- #}
+
+{%- block search_widget -%}
+    <span class="addon-search"><i class="material-icons" aria-hidden="true">search</i></span>
+    {{- parent() -}}
+{%- endblock -%}
+
+
+
+{# ----- RANGE ----- #}
+
+{%- block range_widget -%}
+    <div class="form-field range{% if required %} required{% endif %}">
+        {{- parent() -}}
+    </div>
+{%- endblock -%}
+
+
+
+{# ----- CHOICES ----- #}
+
+{%- block choice_widget_collapsed -%}
+    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
+        {% set required = false %}
+    {%- endif -%}
+    <select {{ block('widget_attributes') }} class="validate"{% if multiple %} multiple="multiple"{% endif %}>
+        {%- if placeholder is not none -%}
+            <option value=""{% if required %} disabled="disabled" {% if value is empty %} selected="selected"{% endif %}{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
+        {%- endif -%}
+        {%- if preferred_choices|length > 0 -%}
+            {% set options = preferred_choices %}
+            {{- block('choice_widget_options') -}}
+            {%- if choices|length > 0 and separator is not none -%}
+                <option disabled="disabled">{{ separator }}</option>
+            {%- endif -%}
+        {%- endif -%}
+        {%- set options = choices -%}
+        {{- block('choice_widget_options') -}}
+    </select>
+{%- endblock choice_widget_collapsed -%}
+
+{%- block choice_widget_expanded -%}
+    <div {{ block('widget_container_attributes') }} class="form-field">
+        {%- for child in form %}
+            {{- form_widget(child) -}}
+        {% endfor -%}
+    </div>
+{%- endblock choice_widget_expanded -%}
+
+
+
+{# ----- DATE PICKER ----- #}
+
+{%- block date_widget -%}
+    <input type="text" class="datepicker" placeholder="jj/mm/aaaa" {{ block('widget_attributes') }} pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" value="{{ value }}" autocomplete="off" />
+{%- endblock date_widget -%}
+
+
+
+{# ----- TIME PICKER ----- #}
+
+{%- block time_widget -%}
+    <input type="text" class="timepicker" placeholder="-- : --" {{ block('widget_attributes') }} pattern="(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9])" value="{{ value }}" autocomplete="off" />
+{%- endblock time_widget -%}
+
+
+
+{# ----- DATETIME PICKER ----- #}
+
+{% block datetime_widget -%}
+    {%- if widget != 'single_text' and not valid -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control is-invalid')|trim}) -%}
+        {% set valid = true %}
+    {%- endif -%}
+    <div class="form-field datetime inline">
+        <input type="text" class="datepicker dateTimePicker" placeholder="jj/mm/aaaa" {{ block('widget_attributes') }} pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" value="{{ value|slice(0, 10) }}" onchange="(() => {window.dispatchEvent(new Event('datetimepicker'));})()" autocomplete="off" />
+        <input type="text" class="timepicker dateTimePicker" placeholder="-- : --" {{ block('widget_attributes') }} pattern="(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9])" value="{{ value|slice(11, 16) }}" onchange="(() => {window.dispatchEvent(new Event('datetimepicker'));})()" autocomplete="off" />        
+        <input type="text" class="dateTimePicker" {{ block('widget_attributes') }} value="{{ value }}" style="display: none"  />
+    </div>
+{%- endblock datetime_widget %}
+
+
+
+{# ----- COLOR PICKER ----- #}
+
+{%- block color_widget -%}
+    <div class="form-field colorpicker inline" {{ block('widget_attributes') }}>
+        {{ parent() }}
+    </div>
+{%- endblock -%}
+
+
+
+{# ----- SWITCH ----- #}
+
+{%- block switch_widget -%}
+    <div class="switch">
+        <label class="checkbox">
+            {% if disabled_text|default %}<span class="label">{{ disabled_text }}</span>{% endif %}
+            <input type="checkbox" {{ block('widget_attributes') }}{% if checked %} checked{% endif %} />
+            <span class="lever"></span>
+            {% if enabled_text|default %}<span class="label">{{ enabled_text }}</span>{% endif %}
+        </label>
+    </div>
+{%- endblock switch_widget -%}
+
+{%- block switch_row -%}
+    <div id="form_{{ id }}" class="form-group{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if errors|length > 0 %} has-error{% endif %}">
+        {{- form_widget(form) -}}
+        {%- set element = element|default() -%}
+        {{ block('form_label') }}
+    </div>
+    {%- if help is not empty or errors|length > 0 -%}
+        <div class="form-info">
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    {% endif %}
+{%- endblock switch_row -%}
+
+
+
+{# ----- CHECKBOX ----- #}
+
+{%- block checkbox_widget -%}
+    <label class="checkbox">
+        <input type="checkbox" class="filled-in" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked{% endif %} />
+        <span>
+            <span class="value">{{ label|default }}</span>
+        </span>
+    </label>
+{%- endblock checkbox_widget -%}
+
+{%- block checkbox_row -%}
+    <div id="form_{{ id }}" class="form-group form-checkbox{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if errors|length > 0 %} has-error{% endif %}">
+        {{- form_widget(form) -}}
+{#        {%- set element = element|default('label') -%}#}
+        {{ block('form_label') }}
+    </div>
+    {%- if help is not empty or errors|length > 0 -%}
+        <div class="form-info">
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    {% endif %}
+{%- endblock checkbox_row -%}
+
+
+
+{# ----- RADIO ----- #}
+
+{%- block radio_widget -%}
+    <label class="radio">
+        <input type="radio" class="with-gap" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+        <span>
+            <span class="value">{{ label|default }}</span>
+        </span>
+    </label>
+{%- endblock radio_widget -%}
+
+{%- block radio_row -%}
+    <div id="form_{{ id }}" class="form-group form-radio{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if errors|length > 0 %} has-error{% endif %}">
+        {{- form_widget(form) -}}
+        {%- set element = element|default('span') -%}
+        {{ block('form_label') }}
+    </div>
+    {%- if help is not empty or errors|length > 0 -%}
+        <div class="form-info">
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    {% endif %}
+{%- endblock radio_row -%}
+
+
+
+{# ----- FILE INPUT ----- #}
+{%- block file_widget -%}
+    <div class="form-field">
+        <div class="file-field">
+            <div class="btn btn-file{% if disabled %} disabled{% endif %}">
+                <span>Sélectionner</span>
+                <input type="file" {{ block('widget_attributes') }} placeholder="Glissez vos fichiers ici ou cliquez pour sélectionner.">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path" type="text"{% if disabled %} disabled{% endif %} placeholder="Aucun fichier choisi">
+            </div>
+        </div>
+    </div>
+{%- endblock file_widget -%}
+
+
+
+{# ----- BUTTON ----- #}
+
+{%- block button_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('waves-effect waves-dark') ~ ' btn')|trim}) %}
+    {%- if label is empty -%}
+        {%- if label_format is not empty -%}
+            {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+            }) %}
+        {%- elseif label is same as(false) -%}
+            {% set translation_domain = false %}
+        {%- else -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
+    {%- endif -%}
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>
+        {%- if icon|default -%}
+            <i class="material-icons" aria-hidden="true">{{ icon }}</i>
+        {%- endif -%}
+        <span>{{ label }}</span>
+    </button>
+{%- endblock button_widget -%}
+
+{%- block submit_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('waves-effect waves-dark'))|trim}) %}
+    {%- set type = type|default('submit') -%}
+    {{ block('button_widget') }}
+{%- endblock submit_widget -%}
+
+{%- block reset_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('waves-effect waves-light') ~ ' btn btn-default')|trim}) %}
+    {%- set type = type|default('reset') -%}
+    {{ block('button_widget') }}
+{%- endblock reset_widget -%}
+
+{%- block button_row -%}
+    {# <div {% with {attr: row_attr|default({})} %}{{ block('attributes') }}{% endwith %}> #}
+        {{- form_widget(form) -}}
+    {# </div> #}
+{%- endblock button_row -%}
+
+
+
+{# ----- ERRORS ----- #}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <ul class="error" data-form-associe-id="form_{{ id }}">
+            {%- for error in errors -%}
+                <li>
+                    <i class="material-icons" aria-hidden="true">error</i>
+                    <span>{{ error.message }}</span>
+                </li>
+            {%- endfor -%}
+        </ul>
+    {%- endif -%}
+{%- endblock form_errors -%}
+
+
+
+{# ----- HELPER TEXT ----- #}
+
+{%- block form_help -%}
+    {%- if help is not empty -%}
+        {%- set help_attr = help_attr|merge({class: (help_attr.class|default('')~' helper-text')|trim}) -%}
+        <span id="{{ id }}_help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
+            {% if not help_html %}
+                <span>{{ help }}</span>
+            {% else %}
+                {{ help|raw }}
+            {% endif %}
+        </span>
+    {%- endif -%}
+{%- endblock form_help -%}
+
+
+{# ----- ADRESSE ----- #}
+
+{%- block adresse_row -%}
+    <div id="{{ id }}" class="form-group form-fieldset form-adresse{% if disabled %} disabled{% endif %}{% if errors|length > 0 %} has-error{% endif %}">
+        <div class="form-field">
+            {%- if help is not empty or errors|length > 0 -%}
+                <div class="form-info form-fieldset-info">
+                    {{- form_help(form) -}}
+                    {{- form_errors(form) -}}
+                </div>
+            {% endif %}
+            {{- form_row(form.children.ligneAdresse) -}}
+            {% if form.children.villeRecherche is defined %}
+                {{- form_row(form.children.villeRecherche) -}}
+            {% endif %}
+            {{- form_row(form.children.ville) -}}
+            {{- form_row(form.children.suffixeAdresse) -}}
+        </div>
+        {% if label != false %}<span class="form-label">{{ label }}</span>{% endif %}
+    </div>
+{%- endblock adresse_row -%}

@@ -1,0 +1,12 @@
+<progress
+    class="{{ classe|default }}{{ not progressBar ? ' hidden' }}"
+    {{ valeur is defined ? ' value=' ~ valeur ~ ' max=' ~ valeurMax|default(100) }}>
+</progress>
+{% if progressIcon %}
+    <div class="progress-status">
+        {% if progressSpinner %}
+            {% include '_partial/ui/_spinner.html.twig' only %}
+        {% endif %}
+        {% include '_partial/ui/_icone.html.twig' with { icone: 'complet' } only %}
+    </div>
+{% endif %}

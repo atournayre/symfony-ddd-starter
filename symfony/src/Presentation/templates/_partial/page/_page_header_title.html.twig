@@ -1,0 +1,11 @@
+<h1 class="title-group">
+    {%- if icone|default -%}
+        {%- include '_partial/ui/_icone.html.twig' with {icone:icone, title: titleIcone|default} only -%}
+    {%- endif -%}
+    <span>
+    {{- titre|default -}}
+        {%- if sousTitre|default -%}
+            <span class="secondary-text"> &ndash; {{ sousTitre }}</span>
+        {%- endif -%}
+    </span>
+</h1>

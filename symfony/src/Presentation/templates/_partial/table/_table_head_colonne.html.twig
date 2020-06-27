@@ -1,0 +1,52 @@
+{% set isArray = false %}
+{% set hasCheckbox = false %}
+{% set firstColumn = tableau|first %}
+{% for colonne in tableau %}
+    {% apply spaceless %}
+        {% if firstColumn.data|default and firstColumn.data == 'checkbox' %}
+            {% set hasCheckbox = true %}
+        {% endif %}
+        {% if not colonne.size|default %}
+            {% set isArray = true %}
+        {% endif %}
+        {% set hasCheckboxLabel = hasCheckbox and colonne.type|default and colonne.type == 'title' %}
+        {% set element %}
+            {%- if hasCheckboxLabel -%}
+                label
+            {%- elseif colonne.libelleType|default -%}
+                {{ colonne.libelleType }}
+            {%- else -%}
+                span
+            {%- endif -%}
+        {% endset %}
+        {% if isArray %}
+            {% for sousColonne in colonne %}
+                <th {% include '_partial/table/_table_colonnes.html.twig' with {colonne:sousColonne, intitule: sousColonne.intitule|default, thead:true} only %}>
+                    {%- if sousColonne.libelle|default and not hideContent|default -%}
+                        <{{ sousColonne.libelleType|default ? sousColonne.libelleType : 'span' }}>{{ sousColonne.libelle|raw }}</{{ sousColonne.libelleType|default ? sousColonne.libelleType : 'span' }}>
+                    {%- endif -%}
+                </th>
+            {% endfor %}
+        {% else %}
+            <th {% include '_partial/table/_table_colonnes.html.twig' with {colonne:colonne, resultats:resultats|default, intitule: intitule|default, suffixeIntitule: suffixeIntitule|default, thead:true} only %}>
+                {%- if colonne.data|default and colonne.data == 'checkbox' -%}
+                    {% include '_partial/form/_checkbox.html.twig' with {
+                        id: id|default,
+                        checked: checked|default,
+                    } only %}
+                {%- elseif colonne.type|default and colonne.type == 'title' and resultats|default -%}
+                    {%- include '_partial/feedback/_resultats.html.twig' with {
+                        resultats: resultats,
+                        intitule: intitule|default,
+                        element: element,
+                        hasCheckboxLabel: hasCheckboxLabel,
+                        suffixeIntitule: suffixeIntitule|default,
+                        id: id|default,
+                    } only -%}
+                {%- elseif colonne.libelle|default and not hideContent|default -%}
+                    <{{ element }}{{ hasCheckboxLabel ? ' for=' ~ id|default(0) }}>{{ colonne.libelle|raw }}</{{ element }}>
+                {%- endif -%}
+            </th>
+        {% endif %}
+    {% endapply %}
+{% endfor %}

@@ -1,0 +1,9 @@
+<div class="section-header{% if pageHeader|default %} page-header{{ sticky|default(true) ? ' sticky'}}{% endif %}{% if classeWrapper|default %} {{ classeWrapper }}{% endif %}">
+    <div class="section-header-title{% if classe|default %} {{ classe }}{% endif %}">
+        {% block titre %}{% endblock %}
+        {% block extra %}{% endblock %}
+    </div>
+    <div class="section-header-actions">
+        {% block actions %}{% endblock %}
+    </div>
+</div>

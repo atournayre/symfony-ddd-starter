@@ -1,0 +1,20 @@
+{% if progressBar is not defined %}{% set progressBar = true %}{% endif %}
+{% if progressIcon is not defined %}{% set progressIcon = true %}{% endif %}
+{% if progressSpinner is not defined %}{% set progressSpinner = true %}{% endif %}
+
+<div id="uploadBox" class="upload-box" role="dialog">
+    <div class="upload-box-header">
+        <div class="upload-box-title">{{ uploads|length }} fichier{{ uploads|length > 1 ? 's' }}</div>
+        <a class="upload-box-collapse" title="Réduire"><i class="material-icons" aria-hidden="true">remove</i></a>
+        <a class="upload-box-close" title="Fermer"><i class="material-icons" aria-hidden="true">close</i></a>
+    </div>
+    <div class="upload-box-content">
+        {% include '_partial/upload/_upload_progress.html.twig' with {
+            progressBar: progressBar,
+            progressIcon: progressIcon,
+            progressSpinner: progressSpinner,
+            classeProgress: classeProgress|default,
+            classeTermine: classeTermine|default,
+        } only %}
+    </div>
+</div>

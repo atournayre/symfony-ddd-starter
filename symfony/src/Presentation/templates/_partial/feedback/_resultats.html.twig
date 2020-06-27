@@ -1,0 +1,1 @@
+{{- resultats|length }} <{{ element|default('span') }}{{ hasCheckboxLabel ? ' for=' ~ id|default(0) }}>{{ intitule|default('résultat') }}{% if resultats|length > 1 %}s{% endif %}{{ suffixeIntitule|default ? ' ' ~ suffixeIntitule }}</{{ element|default('span') }}>

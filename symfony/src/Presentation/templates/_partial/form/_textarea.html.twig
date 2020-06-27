@@ -1,0 +1,3 @@
+<textarea class="materialize-textarea" id="{{ id|default(name|default) }}" name="{{ name|default }}"{% if disabled|default %} disabled{% endif %}{% if readonly|default %} readonly{% endif %}>
+    {{- value|default -}}
+</textarea>

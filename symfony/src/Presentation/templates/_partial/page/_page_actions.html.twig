@@ -1,0 +1,60 @@
+{% if not actions|default %}
+    {% set actions = [
+        {
+            titre: 'Annuler',
+            classe: 'btn-default btn-cancel',
+            classeAction: 'btn-large',
+            type: 'reset',
+        },
+        {
+            titre: 'Enregistrer',
+            classe: 'info',
+            classeAction: 'btn-large',
+            type: 'submit',
+        },
+    ] %}
+{% endif %}
+
+<div class="page-actions center-align">
+    <div id="pageSelectionCount">
+        <span class="count"></span>
+        <span class="text"></span>
+    </div>
+    {% block actions %}
+        {% if actions|default %}
+            {% for action in actions %}
+                {% if action.classeModal|default %}
+                    {% set actionClasseModal = action.classeModal %}
+                {% elseif action.classe|default %}
+                    {% set actionClasseModal = action.classe %}
+                {% else %}
+                    {% set actionClasseModal = null %}
+                {% endif %}
+                <{% if action.submit|default or action.type|default %}button{{ action.type|default ? ' type=' ~ action.type }}{% else %}a{% endif %}
+                    {{ action.submit|default ? ' type="submit"' }}
+                    {{ action.lien|default ? ' href=' ~ lien }}
+                    {{ action.lienExterne|default(false) ? ' target="_blank"' }}
+                    class="btn waves-effect waves-dark{{ action.classe|default ? ' ' ~ action.classe }}{{ action.classeAction|default ? ' ' ~ action.classeAction : ' btn-flat' }}"
+                    title="{{ action.titre|default('OK') }}"
+                    {% if action.titreModal is defined %}
+                        onclick="(() => {
+                            window.dispatchEvent(new CustomEvent('modal.show_form', {
+                                detail: {
+                                    title: '{{ action.titreModal }}',
+                                    urlFormulaire: '{{ action.urlFormulaire }}',
+                                    urlMajContent: '{{ action.urlMajContent }}',
+                                    {% if action.balise is not null %}
+                                        balise: '{{ action.balise }}',
+                                    {% endif %}
+                                    classeModal: '{{ actionClasseModal|default }}',
+                                    checkbox: Checkbox.listeDesIds('{{ checkboxQuery is defined and checkboxQuery is not null ? checkboxQuery : null }}'),
+                                }
+                            }));
+                        })(); return false;"
+                    {% endif %}>
+                    {{- action.titre|default('OK') -}}
+                </{% if action.submit|default or action.type|default %}button{{ action.type|default ? ' type=' ~ action.type }}{% else %}a{% endif %}>
+            {% endfor %}
+        {% endif %}
+    {% endblock %}
+</div>

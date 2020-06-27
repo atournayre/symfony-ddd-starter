@@ -1,0 +1,31 @@
+<div class="subnav">
+    <div class="subnav-header">
+        <span title="{{ titre }}">{{ titre }}</span>
+        {% if sousTitre|default %}
+            <span class="secondary" title="{{ sousTitre }}">{{ sousTitre }}</span>
+        {% endif %}
+    </div>
+    <ul>
+        {% if backLink|default %}
+            <li>
+                <a class="back-nav" href="{{ backLink }}" title="{{ texteRetour|default('Retour') }}">
+                    {% include '_partial/ui/_icone.html.twig' with {icone:'retour'} only %}
+                    <span>{{ texteRetour|default('Retour') }}</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if menu|default %}
+            {% for menuSlug, menuElement in menu %}
+                <li data-active="page-{{ parent }}--{{ menuSlug }}">
+                    <a href="{{ menuElement.lien|default('#') }}" title="{{ menuElement.titre }}">
+                        {% if menuElement.icone|default %}
+                            {% include '_partial/ui/_icone.html.twig' with {icone:parent} only %}
+                        {% endif %}
+                        <span>{{ menuElement.titre }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    <a class="subnav-toggle"></a>
+</div>

@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+{% embed '_partial/modal/_modal_content.html.twig' with {
+    form: form,
+    action: 'Créer',
+} only %}
+    {% block content %}
+        {% include 'back/utilisateur/_form_utilisateur.html.twig' with {form: form} %}
+    {% endblock %}
+{% endembed %}

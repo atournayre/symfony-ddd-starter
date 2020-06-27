@@ -1,0 +1,14 @@
+<table{{ classe|default ? ' class=' ~ classe }}>
+    <thead>
+        <tr>
+            {% include '_partial/table/_table_head_colonne.html.twig' with {
+                tableau: tableau,
+                resultats: resultats|default,
+                intitule: intitule|default,
+                suffixeIntitule: suffixeIntitule|default,
+                checked: checked|default,
+                id: id|default,
+            } only %}
+        </tr>
+    </thead>
+</table>

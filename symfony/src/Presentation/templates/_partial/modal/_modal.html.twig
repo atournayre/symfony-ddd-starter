@@ -1,0 +1,9 @@
+<div id="{{ id|default('modalAroban') }}" class="modal{{ classeModal|default ? ' ' ~ classeModal }}">
+    <div class="modal-header">
+        <div class="modal-title" id="titreModalAroban">{{ titre|default }}</div>
+        <a class="modal-close" title="Fermer"><i class="material-icons">close</i></a>
+    </div>
+    <div id="modalArobanContent">
+        {% block content %}{% endblock %}
+    </div>
+</div>

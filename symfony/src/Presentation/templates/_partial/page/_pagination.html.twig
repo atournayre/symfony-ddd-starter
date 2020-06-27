@@ -1,0 +1,40 @@
+{% set pages = range(1,((nombreElement/maxParPage)|round(0, 'ceil'))) %}
+{% set pageActive = page %}
+{% set first = false %}
+{% set last = false %}
+{% if pageActive == pages|first %}
+    {% set first = true %}
+{% endif %}
+{% if pageActive == pages|last %}
+    {% set last = true %}
+{% endif %}
+
+<ul class="pagination">
+    <li class="browse{{ first ? ' disabled' }}">
+        <a{% if not first %} href="{{ path(path, {page: 1}) }}" class="waves-effect waves-dark" title="Première page"{% endif %}>
+            <i class="material-icons" aria-hidden="true">first_page</i>
+        </a>
+    </li>
+    <li class="browse{{ first ? ' disabled' }}">
+        <a{% if not first %} href="{{ path(path, {page: page-1 < 1 ? 1 : page-1}) }}" class="waves-effect waves-dark" title="Page précédente"{% endif %}>
+            <i class="material-icons" aria-hidden="true">chevron_left</i>
+        </a>
+    </li>
+
+    {% for numero in range(1,((nombreElement/maxParPage)|round(0, 'ceil'))) %}
+        <li{{ numero == pageActive ? ' class="active"' }}>
+            <a{% if numero != pageActive %} href="{{ path(path, {page: numero}) }}" class="waves-effect waves-dark"{% endif %} title="Page {{ numero }}">{{ numero }}</a>
+        </li>
+    {% endfor %}
+
+    <li class="browse{{ last ? ' disabled' }}">
+        <a{% if not last %}  href="{{ path(path, {page: page+1 > ((nombreElement/maxParPage)|round(0, 'ceil')) ? ((nombreElement/maxParPage)|round(0, 'ceil')) : page+1}) }}" class="waves-effect waves-dark" title="Page suivante"{% endif %}>
+            <i class="material-icons" aria-hidden="true">chevron_right</i>
+        </a>
+    </li>
+    <li class="browse{{ last ? ' disabled' }}">
+        <a{% if not last %} href="{{ path(path, {page: ((nombreElement/maxParPage)|round(0, 'ceil'))}) }}" class="waves-effect waves-dark" title="Dernière page"{% endif %}>
+            <i class="material-icons" aria-hidden="true">last_page</i>
+        </a>
+    </li>
+</ul>

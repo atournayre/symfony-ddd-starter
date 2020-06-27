@@ -1,0 +1,35 @@
+<div id="double-confirmation" class="modal-content">
+    {% if messageConfirmation is defined %}
+        {{ messageConfirmation }}
+    {% else %}
+        Voulez vous vraiment effectuer cette action ?
+    {% endif %}
+</div>
+{% apply spaceless %}
+    <div class="modal-footer">
+        {% block extraActions %}{% endblock %}
+        {% block modalActions %}
+            <div>
+                {% if annuler|default or annuler is not defined %}
+                    {% include '_partial/modal/_modal_action.html.twig' with {titre: 'Annuler'} only %}
+                {% endif %}
+                {% block actions %}
+                    <{{ submit|default ? 'button' : 'a' }}{{ submit|default ? ' type="submit"' }}{{ lien|default ? ' href=' ~ lien }}
+                    class="btn waves-effect waves-dark{{ classe|default ? ' ' ~ classe : ' btn-flat' }}"
+                    title="{{ titre|default('OK') }}"
+                    {% if urlFormulaire is defined and urlFormulaire is not null and urlMajContent is defined and urlMajContent is not null %}
+                        onclick="(() => {
+                            DoubleConfirmationModalAroban.submitDoubleConfirmation(
+                                '{{ urlMajContent }}',
+                                '{{ urlFormulaire }}'
+                            )
+                        })()"
+                    {% endif %}
+                    >
+                    {{ titre|default('OK') }}
+                    </{{ submit|default ? 'button' : 'a' }}>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% endapply %}

@@ -1,0 +1,18 @@
+<div id="helpPanel" class="modal bottom-sheet">
+    <div class="modal-header">
+        <div class="modal-title">
+            <span>{{ titre|default('Aide') }}</span>
+        </div>
+        <a class="modal-close" title="Fermer">
+            {% include '_partial/ui/_icone.html.twig' with {icone:'fermer'} only %}
+        </a>
+    </div>
+    <div id="helpPanelContent">
+        <div class="modal-content{{ classeContenu|default ? ' ' ~ classeContenu }}">
+            {% block content %}
+                {% include '_partial/feedback/_noresult.html.twig' with {message: 'À développer'} only %}
+            {% endblock %}
+        </div>
+        <div class="modal-footer">&nbsp;</div>
+    </div>
+</div>

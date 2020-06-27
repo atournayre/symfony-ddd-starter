@@ -1,0 +1,5 @@
+<select{% if classe|default %} class="{{ classe }}"{% endif %}>
+    {%- for index, option in options|default -%}
+        <option value="{{ value|default(index) }}"{% if option.disabled|default %} disabled{% endif %}{% if option.selected|default %} selected{% endif %}{% if isCondition is defined %} data-condition="{{ isCondition ? 'true' : 'false' }}"{% endif %}>{{ option.value|default }}</option>
+    {%- endfor -%}
+</select>

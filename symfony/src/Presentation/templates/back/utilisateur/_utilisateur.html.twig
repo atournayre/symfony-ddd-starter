@@ -1,0 +1,41 @@
+<tr{% if not utilisateur.isActif|default %} class="disabled"{% endif %}>
+    <td{% include '_partial/table/_table_colonnes.html.twig' with {colonne:tableau['utilisateur']} only %}>
+        <div class="title-group">
+            {% include '_partial/ui/_icone.html.twig' with {icone:'utilisateur'} only %}
+            <div>
+                {% include '_partial/person/_utilisateur.html.twig' with {
+                    nomContact: utilisateur.nomContact,
+                } %}
+                {% include '_partial/person/_contact_info.html.twig' with {contactTelephone:utilisateur.telephone, contactEmail: utilisateur.email} only %}
+            </div>
+        </div>
+    </td>
+    <td{% include '_partial/table/_table_colonnes.html.twig' with {colonne:tableau['organisme']} only %}>
+        {% if utilisateur.nomOrganisme|default %}
+            <a title="{{ utilisateur.nomOrganisme }}">{{ utilisateur.nomOrganisme }}</a>
+        {% else %}
+            -
+        {% endif %}
+    </td>
+    <td{% include '_partial/table/_table_colonnes.html.twig' with {colonne:tableau['profil']} only %}>
+        {% if utilisateur.profil|default %}
+            <a title="{{ utilisateur.profil }}">{{ utilisateur.profil }}</a>
+        {% else %}
+            -
+        {% endif %}
+    </td>
+    {% apply spaceless %}
+        <td{% include '_partial/table/_table_colonnes.html.twig' with {colonne:tableau['roles']} only %}>
+            {% if utilisateur.roles|default|length > 0 %}
+                <span title="{% for role in utilisateur.roles %}{{ role }}{% if not loop.last %},{% endif %}{% endfor %}">
+                    {% for role in utilisateur.roles %}
+                        {{ role|replace({'ROLE_': '', '_': " "}) }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </span>
+            {% endif %}
+        </td>
+    {% endapply %}
+    <td{% include '_partial/table/_table_colonnes.html.twig' with {colonne:tableau['actions']} only %}>
+        {% include '_partial/nav/_actions.html.twig' with {index: index, actions: actions} only %}
+    </td>
+</tr>

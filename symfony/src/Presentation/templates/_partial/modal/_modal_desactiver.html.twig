@@ -1,0 +1,8 @@
+{% include '_partial/modal/_modal_confirmer.html.twig' with {
+	messageConfirmation: "Voulez-vous vraiment désactiver ?"|e,
+	submit: true,
+	action: 'Désactiver',
+	classeAction: classeAction|default('danger'),
+	urlFormulaire: urlFormulaire|default,
+	urlMajContent: urlMajContent|default,
+} only %}

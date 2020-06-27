@@ -1,0 +1,29 @@
+<div class="modal-content">
+    {% if messageConfirmation is defined %}
+        {{ messageConfirmation }}
+    {% else %}
+        Voulez vous vraiment effectuer cette action ?
+    {% endif %}
+</div>
+{% apply spaceless %}
+    <div class="modal-footer">
+        {% block extraActions %}{% endblock %}
+        {% block modalActions %}
+            <div>
+                {% if annuler|default or annuler is not defined %}
+                    {% include '_partial/modal/_modal_action.html.twig' with {titre: 'Annuler'} only %}
+                {% endif %}
+                {% block actions %}
+                    {% include '_partial/modal/_modal_action.html.twig' with {
+                        submit: submit|default(true),
+                        titre: action|default('Confirmer'),
+                        classe: classeAction|default('primary'),
+                        urlFormulaire: urlFormulaire|default,
+                        urlMajContent: urlMajContent|default,
+                        balise: balise|default,
+                    } only %}
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% endapply %}

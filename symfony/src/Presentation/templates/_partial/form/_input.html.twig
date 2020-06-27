@@ -1,0 +1,29 @@
+{% set type = type|default('text') %}
+{%- if type != 'file' -%}
+    {%- if addon|default -%}
+        <div class="input-group{{ addon.type|default ? ' ' ~ addon.type : ' suffix' }}{{ readonly|default ? ' readonly' }}">
+    {%- endif -%}
+    {%- if readonly|default -%}
+        <span class="input-field readonly">{{- value|default -}}</span>
+    {%- else -%}
+        <input type="{{ type }}" id="{{ id|default(name|default) }}" name="{{ name|default }}"{% if type|default %} step="{{ step|default(1) }}"{% endif %}{% if value|default %} value="{{ value }}"{% endif %}{% if disabled|default %} disabled{% endif %}{% if classe|default %} class="{{ classe }}"{% endif %}>
+    {%- endif -%}
+    {%- if addon|default -%}
+        {%- if not readonly|default or readonly|default and value|default -%}
+            <div class="addon{{ addon.class|default ? ' ' ~ addon.class }}">{{ addon.content|raw }}</div>
+        {%- endif -%}
+        </div>
+    {%- endif -%}
+{%- else -%}
+    <div class="form-field">
+        <div class="file-field">
+            <div class="btn btn-file">
+                <span>Sélectionner</span>
+                <input type="file" class="{{ dropzone|default ? 'dropzone' }}" id="{{ id|default(name|default) }}" name="{{ name|default }}" placeholder="Glissez vos fichiers ici ou cliquez pour sélectionner.">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path" type="text" placeholder="Aucun fichier choisi">
+            </div>
+        </div>
+    </div>
+{%- endif -%}

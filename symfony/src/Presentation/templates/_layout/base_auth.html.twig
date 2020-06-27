@@ -1,0 +1,23 @@
+{% extends '_layout/base.html.twig' %}
+
+{% block skin %}page-login{% endblock %}
+{% block title %}{% endblock %}
+{% block titleSuffix %}{% endblock %}
+{% block navbar %}{% endblock %}
+
+{% block body %}<h1 class="sr-only">{% block h1 %}Veuillez vous connecter{% endblock %}</h1>
+    <div class="backdrop"></div>
+    <div class="login">
+        <section class="main-content">
+            <div>
+                <header>
+                    <div class="branding">
+                        <img src="{{ asset('assets/images/brand_logo.jpeg') }}" width="481" height="64" alt />
+                    </div>
+                </header>
+                {% block content %}{% endblock %}
+            </div>
+            {% block footer %}{% endblock %}
+        </section>
+    </div>
+{% endblock %}

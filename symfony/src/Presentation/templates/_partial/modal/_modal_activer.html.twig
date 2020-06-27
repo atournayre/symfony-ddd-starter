@@ -1,0 +1,8 @@
+{% include '_partial/modal/_modal_confirmer.html.twig' with {
+    messageConfirmation: "Voulez-vous vraiment activer ?"|e,
+    submit: true,
+    action: 'Activer',
+    classeAction: classeAction|default,
+    urlFormulaire: urlFormulaire|default,
+    urlMajContent: urlMajContent|default,
+} only %}

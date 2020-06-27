@@ -1,0 +1,21 @@
+<h2 class="sr-only">{{ menu.libelle }}</h2>
+<ul>
+    {% for elementMenu in menu.elementsMenu %}
+        <li data-active="page-{{ elementMenu.nom }}">
+            {% include '_partial/nav/_menu_lien.html.twig' with {elementMenu: elementMenu} only %}
+            {% if elementMenu.dropdown|default %}
+                <ul id="menu-{{ elementMenu.nom }}-dropdown" class="dropdown-content">
+                    {% for elementMenuEnfant in elementMenu.elementsMenuEnfant %}
+                        {% if elementMenuEnfant.classe == 'divider' %}
+                            <li class="divider" tabindex="-1">{{ elementMenuEnfant.titre }}</li>
+                        {% else %}
+                            <li data-active="page-{{ elementMenuEnfant.nom }}">
+                                {% include '_partial/nav/_menu_lien.html.twig' with {elementMenu: elementMenuEnfant} only %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

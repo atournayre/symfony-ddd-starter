@@ -1,0 +1,5 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include '_partial/feedback/_erreur.html.twig' with {titre: 'Accès refusé.', detail: 'Vous n\'avez pas les droits permettant d\'accéder à cette page.'} only %}
+{% endblock %}

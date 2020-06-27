@@ -1,0 +1,9 @@
+{% set titreDefaut = 'Filtrer les résultats' %}
+<a class="filter-panel-trigger waves-effect modal-trigger{{ filtreActif|default ? ' chipped' : '' }}"
+    href="#filterPanel"
+    title="{{ titre|default(titreDefaut) }}">
+    {% include '_partial/ui/_icone.html.twig' with {
+        titre: titre|default(titreDefaut),
+        icone:'filtrer',
+    } only %}
+</a>

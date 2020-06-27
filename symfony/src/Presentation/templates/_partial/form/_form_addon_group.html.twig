@@ -1,0 +1,39 @@
+<div class="flex-row-start{{ classeAddonGroup|default ? ' ' ~ classeAddonGroup }}">
+    {%- if before|default -%}
+        <div class="addon">{{ before|raw }}</div>
+    {%- endif -%}
+    {%- if prefix|default or suffix|default -%}
+        <div class="input-group {{ prefix|default ? 'prefix' : 'suffix' }}">
+    {%- endif -%}
+    {%- if field.vars|default -%}
+        {{ form_widget(field) }}
+    {%- else -%}
+        {{ field|raw }}
+    {%- endif -%}
+    {%- if prefix|default or suffix|default -%}
+        <span class="addon">{{ prefix|default ? prefix|raw : suffix|raw }}</span>
+        </div>
+    {%- endif -%}
+    {%- if after|default -%}
+        <div class="addon">{{ after|raw }}</div>
+    {%- endif -%}
+    {%- if tooltip|default or helpdrop|default -%}
+        <div class="addon">
+            {%- if tooltip|default -%}
+                {% include '_partial/feedback/_tooltip.html.twig' with {contenu: tooltip|raw} only -%}
+            {%- endif -%}
+            {%- if helpdrop|default -%}
+                {% include '_partial/feedback/_helpdrop.html.twig' with {
+                    id: helpdrop.id|default,
+                    classe: helpdrop.classe|default,
+                    texte: helpdrop.texte|default,
+                    icone: helpdrop.icone|default,
+                    classeIcone: helpdrop.classeIcone|default,
+                    contenu: helpdrop.contenu|default,
+                    classeContenu: helpdrop.classeContenu|default,
+                    width: helpdrop.width|default,
+                } only -%}
+            {%- endif -%}
+        </div>
+    {%- endif -%}
+</div>

@@ -1,0 +1,17 @@
+<script>
+  function etat(item) {
+    if(item.checked) {
+      $(item).closest('.form-group').addClass('checked');
+    }
+    else {
+      $(item).closest('.form-group').removeClass('checked');
+    }
+  }
+  let checkboxItem = $('input[type="checkbox"]');
+  checkboxItem.each(function () {
+    etat(this);
+  });
+  checkboxItem.on('change', function() {
+    etat(this);
+  });
+</script>

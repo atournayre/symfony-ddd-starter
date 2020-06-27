@@ -1,0 +1,6 @@
+<div class="input-field search-field">
+    <a href="#!" class="search-trigger" title="{{ titre|default('Rechercher') }}">
+        {% include '_partial/ui/_icone.html.twig' with {icone: icone|default('rechercher')} only %}
+    </a>
+    <input type="search" id="{{ id|default('search') }}" placeholder="{{ titre|default('Rechercher') ~ '...' }}">
+</div>

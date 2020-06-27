@@ -1,0 +1,4 @@
+<span class="icon-alert-text {{ classe|default }}">
+    {% include '_partial/ui/_icone.html.twig' with {icone: icone|default('info'), classeIcone: classeIcone|default(classe|default('info'))} only %}
+    <span>{{ texte|default|raw }}</span>
+</span>

@@ -1,0 +1,96 @@
+{# Menus & Entités #}
+{%- if icone|lower == 'menu' %}{% set icone = 'menu' %}{% endif -%}
+{%- if icone|lower == 'organisme' %}{% set icone = 'business' %}{% endif -%}
+{%- if icone|lower == 'utilisateur' %}{% set icone = 'person' %}{% endif -%}
+{%- if icone|lower == 'outil' %}{% set icone = 'extension' %}{% endif -%}
+{%- if icone|lower == 'droit' %}{% set icone = 'vpn_key' %}{% endif -%}
+{%- if icone|lower == 'acces' %}{% set icone = 'vpn_key' %}{% endif -%}
+{%- if icone|lower == 'assistance' %}{% set icone = 'headset_mic' %}{% endif -%}
+{%- if icone|lower == 'communication' %}{% set icone = 'chat' %}{% endif -%}
+{%- if icone|lower == 'statistique' %}{% set icone = 'equalizer' %}{% endif -%}
+{%- if icone|lower == 'alerte' %}{% set icone = 'notifications' %}{% endif -%}
+{%- if icone|lower == 'aide' %}{% set icone = 'help' %}{% endif -%}
+{%- if icone|lower == 'service' %}{% set icone = 'work' %}{% endif -%}
+{%- if icone|lower == 'version' %}{% set icone = 'tag' %}{% endif -%}
+{%- if icone|lower == 'projet' %}{% set icone = 'folder' %}{% endif -%}
+{%- if icone|lower == 'projet_partage' %}{% set icone = 'folder_shared' %}{% endif -%}
+{%- if icone|lower == 'projet_abonnement' %}{% set icone = 'rss_feed' %}{% endif -%}
+{%- if icone|lower == 'projet_autre' %}{% set icone = 'folder' %}{% endif -%}
+{%- if icone|lower == 'role' %}{% set icone = 'assignment_ind' %}{% endif -%}
+{%- if icone|lower == 'profil' %}{% set icone = 'assignment_ind' %}{% endif -%}
+{%- if icone|lower == 'categorie' %}{% set icone = 'label' %}{% endif -%}
+{%- if icone|lower == 'demande' %}{% set icone = 'live_help' %}{% endif -%}
+
+{# Actions #}
+{%- if icone|lower == 'ajouter' %}{% set icone = 'add' %}{% endif -%}
+{%- if icone|lower == 'retirer' %}{% set icone = 'remove' %}{% endif -%}
+{%- if icone|lower == 'modifier' %}{% set icone = 'edit' %}{% endif -%}
+{%- if icone|lower == 'supprimer' %}{% set icone = 'delete' %}{% endif -%}
+{%- if icone|lower == 'archiver' %}{% set icone = 'archive' %}{% endif -%}
+{%- if icone|lower == 'voir' %}{% set icone = 'visibility' %}{% endif -%}
+{%- if icone|lower == 'activer' %}{% set icone = 'visibility' %}{% endif -%}
+{%- if icone|lower == 'desactiver' %}{% set icone = 'visibility_off' %}{% endif -%}
+{%- if icone|lower == 'rechercher' %}{% set icone = 'search' %}{% endif -%}
+{%- if icone|lower == 'filtrer' %}{% set icone = 'filter_list' %}{% endif -%}
+{%- if icone|lower == 'trier' %}{% set icone = 'sort' %}{% endif -%}
+{%- if icone|lower == 'fermer' %}{% set icone = 'close' %}{% endif -%}
+{%- if icone|lower == 'annuler' %}{% set icone = 'undo' %}{% endif -%}
+{%- if icone|lower == 'reinitialiser' %}{% set icone = 'replay' %}{% endif -%}
+{%- if icone|lower == 'options' %}{% set icone = 'more_vert' %}{% endif -%}
+{%- if icone|lower == 'plus' %}{% set icone = 'more_horiz' %}{% endif -%}
+{%- if icone|lower == 'retour' %}{% set icone = 'arrow_back' %}{% endif -%}
+{%- if icone|lower == 'connexion' %}{% set icone = 'exit_to_app' %}{% endif -%}
+{%- if icone|lower == 'deconnexion' %}{% set icone = 'power_settings_new' %}{% endif -%}
+{%- if icone|lower == 'telecharger' %}{% set icone = 'get_app' %}{% endif -%}
+{%- if icone|lower == 'importer' %}{% set icone = 'cloud_upload' %}{% endif -%}
+{%- if icone|lower == 'envoyer' %}{% set icone = 'send' %}{% endif -%}
+{%- if icone|lower == 'relancer' %}{% set icone = 'refresh' %}{% endif -%}
+{%- if icone|lower == 'calcul' %}{% set icone = 'functions' %}{% endif -%}
+{%- if icone|lower == 'accepter' %}{% set icone = 'check' %}{% endif -%}
+{%- if icone|lower == 'refuser' %}{% set icone = 'close' %}{% endif -%}
+{%- if icone|lower == 'restaurer' %}{% set icone = 'restore_from_trash' %}{% endif -%}
+{%- if icone|lower == 'etape_suivante' %}{% set icone = 'arrow_forward' %}{% endif -%}
+{%- if icone|lower == 'etape_precedente' %}{% set icone = 'arrow_back' %}{% endif -%}
+{%- if icone|lower == 'terminer' %}{% set icone = 'check' %}{% endif -%}
+{%- if icone|lower == 'dupliquer' %}{% set icone = 'filter_none' %}{% endif -%}
+{%- if icone|lower == 'complet' %}{% set icone = 'check_circle' %}{% endif -%}
+{%- if icone|lower == 'uploading' %}{% set icone = 'block' %}{% endif -%}
+
+{# Divers #}
+{%- if icone|lower == 'quantite' %}{% set icone = 'unfold_more' %}{% endif -%}
+{%- if icone|lower == 'date' %}{% set icone = 'today' %}{% endif -%}
+{%- if icone|lower == 'heure' %}{% set icone = 'schedule' %}{% endif -%}
+{%- if icone|lower == 'jamais' %}{% set icone = 'block' %}{% endif -%}
+{%- if icone|lower == 'desactive' %}{% set icone = 'block' %}{% endif -%}
+{%- if icone|lower == 'parfois' %}{% set icone = 'help' %}{% endif -%}
+{%- if icone|lower == 'toujours' %}{% set icone = 'check_circle' %}{% endif -%}
+{%- if icone|lower == 'score_vide' %}{% set icone = 'star_border' %}{% endif -%}
+{%- if icone|lower == 'score_moitie' %}{% set icone = 'star_half' %}{% endif -%}
+{%- if icone|lower == 'score_plein' %}{% set icone = 'star' %}{% endif -%}
+{%- if icone|lower == 'special' %}{% set icone = 'star' %}{% endif -%}
+{%- if icone|lower == 'info' %}{% set icone = 'info' %}{% endif -%}
+{%- if icone|lower == 'info_outline' %}{% set icone, rotate = 'error_outline', '180' %}{% endif -%}
+{%- if icone|lower == 'erreur' %}{% set icone = 'error' %}{% endif -%}
+{%- if icone|lower == 'warning' %}{% set icone = 'warning' %}{% endif -%}
+{%- if icone|lower == 'externe' %}{% set icone = 'open_in_new' %}{% set classeIcone = 'externe' %}{% endif -%}
+{%- if icone|lower == 'collaborateurs' %}{% set icone = 'people' %}{% endif -%}
+{%- if icone|lower == 'partager' %}{% set icone = 'people' %}{% endif -%}
+{%- if icone|lower == 'abonnement' %}{% set icone = 'rss_feed' %}{% endif -%}
+{%- if icone|lower == 'desabonnement' %}{% set icone = 'block' %}{% endif -%}
+{%- if icone|lower == 'sondage' %}{% set icone = 'assignment' %}{% endif -%}
+{%- if icone|lower == 'essai' %}{% set icone = 'assignment' %}{% endif -%}
+{%- if icone|lower == 'suivi' %}{% set icone = 'assignment' %}{% endif -%}
+{%- if icone|lower == 'modele_geo' %}{% set icone = 'layers' %}{% endif -%}
+{%- if icone|lower == 'couche' %}{% set icone = 'grain' %}{% endif -%}
+{%- if icone|lower == 'fichier' %}{% set icone = 'insert_drive_file' %}{% endif -%}
+
+{%- if 'fdt-' in icone|lower -%}
+    <i class="{{ icone }}{{ classeIcone|default ? ' ' ~ classeIcone }}"{% if title|default %} title="{{ title }}"{% endif %} aria-hidden="true"></i>
+{%- else -%}
+    <i class="material-icons{{ classeIcone|default ? ' ' ~ classeIcone }}{{ rotate|default ? ' rotate' ~ rotate }}"{% if title|default %} title="{{ title }}"{% endif %} aria-hidden="true">
+        {{- icone -}}
+        {%- if addon|default -%}
+            {% include '_partial/ui/_icone.html.twig' with {icone: addon} only %}
+        {%- endif -%}
+    </i>
+{%- endif -%}

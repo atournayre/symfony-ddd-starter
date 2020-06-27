@@ -1,0 +1,39 @@
+<div id="filterPanel" class="modal bottom-sheet">
+    <div class="modal-header">
+        <div class="modal-title">
+            <span>{{ titre|default('Filtrer les résultats') }}</span>
+        </div>
+        <a class="modal-close" title="Fermer">
+            {% include '_partial/ui/_icone.html.twig' with {icone:'fermer'} only %}
+        </a>
+    </div>
+    <div id="filterPanelContent">
+        {% if form|default %}
+            {{ form_start(form) }}
+        {% endif %}
+        <div class="modal-content{{ classeContenu|default ? ' ' ~ classeContenu }}">
+            {% block content %}
+                {% include '_partial/feedback/_noresult.html.twig' with {message: 'À développer'} only %}
+            {% endblock %}
+        </div>
+        {% apply spaceless %}
+            <div class="modal-footer">
+                <div>
+                    <a href="{{ urlListe|default('#!') }}" class="waves-effect waves-dark btn-flat" title="Réinitialiser">
+                        {% include '_partial/ui/_icone.html.twig' with {icone:'reinitialiser'} only %}
+                        <span>Réinitialiser</span>
+                    </a>
+                    {% if form|default %}
+                        {{ form_row(form.submit) }}
+                    {% else %}
+                        {% include '_partial/modal/_modal_action.html.twig' with {
+                            submit: submit|default(true),
+                            titre: action|default('Rechercher'),
+                            classe: classeAction|default('primary')
+                        } only %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endapply %}
+    </div>
+</div>

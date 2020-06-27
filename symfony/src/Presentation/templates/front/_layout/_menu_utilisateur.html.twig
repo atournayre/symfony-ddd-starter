@@ -1,0 +1,46 @@
+{% if app.session.get('infos_utilisateur')|default %}
+    {% set utilisateurConnecte = {
+        'prenom': app.session.get('infos_utilisateur').prenom|default,
+        'nom': app.session.get('infos_utilisateur').nom|default,
+        'organisme': app.session.get('infos_utilisateur').nomOrganisme|default,
+    } %}
+    <ul>
+        <li>
+            <a href="#!" class="waves-effect waves-dark user dropdown-trigger" data-target="user-menu-dropdown" title="{{ utilisateurConnecte.prenom }} {{ utilisateurConnecte.nom }} ({{ utilisateurConnecte.organisme }})">
+                <span class="user-image">
+                    {% include '_partial/ui/_icone.html.twig' with {icone:'utilisateur'} only %}
+                </span>
+                <span class="user-info">
+                    <span class="user-name">{{ utilisateurConnecte.prenom }} {{ utilisateurConnecte.nom }}</span>
+                    <span class="user-company">{{ utilisateurConnecte.organisme }}</span>
+                </span>
+            </a>
+            <ul id="user-menu-dropdown" class="dropdown-content" data-constrainwidth="false">
+                <li>
+                    <a href="{{ path('accueil.back') }}">
+                        {% include '_partial/ui/_icone.html.twig' with {icone:'build'} only %}
+                        <span>Administration</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('app_logout') }}" class="danger">
+                        {% include '_partial/ui/_icone.html.twig' with {icone:'deconnexion'} only %}
+                        <span>Déconnexion</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+{% else %}
+    <ul>
+        <li>
+            {% include '_partial/nav/_menu_lien.html.twig' with {
+                elementMenu: {
+                    lien: path('app_login'),
+                    titre: 'Se connecter',
+                    icone: 'exit_to_app',
+                }
+            } only %}
+        </li>
+    </ul>
+{% endif %}
