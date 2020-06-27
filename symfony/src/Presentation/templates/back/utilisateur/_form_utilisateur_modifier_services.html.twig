@@ -1,6 +1,0 @@
-{{ form_start(form) }}
-{% embed '_partial/modal/_modal_content.html.twig' with {form: form} only %}
-    {% block content %}
-        {% include 'back/utilisateur/_form_utilisateur_services.html.twig' with {form: form} %}
-    {% endblock %}
-{% endembed %}

@@ -1,0 +1,8 @@
+{% include '_partial/modal/_modal_confirmer.html.twig' with {
+    messageConfirmation: "Voulez-vous vraiment vous désabonner de ce projet ?"|e,
+    submit: true,
+    action: 'Se désabonner',
+    classeAction: classeAction|default('primary'),
+    urlFormulaire: urlFormulaire|default,
+    urlMajContent: urlMajContent|default,
+} only %}

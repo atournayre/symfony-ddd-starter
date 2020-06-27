@@ -1,0 +1,80 @@
+{% if progressBar is not defined %}{% set progressBar = true %}{% endif %}
+{% if progressIcon is not defined %}{% set progressIcon = true %}{% endif %}
+{% if progressSpinner is not defined %}{% set progressSpinner = true %}{% endif %}
+
+{%- set classeCalculee -%}
+    {%- if classeProgress|default and classeTermine|default -%}
+        {{- classeProgress ~ ' ' ~ classeTermine ~ '-complete' -}}
+    {%- else -%}
+        {{- classeProgress|default -}}
+        {{- classeTermine|default ? classeTermine ~ '-complete' -}}
+    {%- endif %}
+{%- endset -%}
+
+{% set valeurTotale = 0 %}
+{% set valeurMaxTotale = 100 %}
+
+{% if not uploads|default %}
+    {% set uploads = [
+        {
+            nom: null,
+            type: 'Pénétromètre dynamique',
+            fichier: 'sondage_DPT1_23456.txt',
+        },
+        {
+            nom: 'Essai n°1',
+            type: 'Essai à la plaque',
+            fichier: 'essai_1.txt',
+        },
+        {
+            nom: null,
+            type: 'Essai à la plaque',
+            fichier: 'essai_plaque_56.txt',
+        },
+        {
+            nom: null,
+            type: 'Essai à la plaque',
+            fichier: 'essai_3.txt',
+        },
+        {
+            nom: 'Essai n°4',
+            type: 'Essai à la plaque',
+            fichier: 'essai_4.txt',
+        },
+        {
+            nom: null,
+            type: 'Essai à la plaque',
+            fichier: 'essai_5.txt',
+        },
+    ] %}
+{% endif %}
+
+<ul class="upload-progress collection">
+    {% for index, upload in uploads %}
+
+        {% set valeurMax = valeurMax|default(100) %}
+        {% if loop.index <= 2 %}
+            {% set valeur = valeurMax %}
+        {% else %}
+            {% set valeur = random(0,100) %}
+        {% endif %}
+
+        <li class="upload-item collection-item">
+            <div class="content">
+                {% include '_partial/ui/_icone.html.twig' with {icone: 'fichier'} only %}
+                <div>
+                    <span class="primary-text" title="{{ upload.fichier|default }}">{{ upload.fichier|default }}</span>
+                    <div class="secondary-text">{{ upload.type|default('Type de fichier') }}</div>
+                </div>
+            </div>
+            {% include '_partial/ui/_progress.html.twig' with {
+                valeur: valeur|default,
+                valeurMax: valeurMax|default,
+                classe: classeCalculee|default,
+                progressBar: progressBar,
+                progressIcon: progressIcon,
+                progressSpinner: progressSpinner,
+            } only %}
+        </li>
+    {% endfor %}
+</ul>

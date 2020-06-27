@@ -1,0 +1,13 @@
+{#{% include '_partial/modal/_modal_content.html.twig' with {#}
+{#    action: 'Approuver',#}
+{#    classeAction: classeAction|default('success'),#}
+{#} only %}#}
+
+{% include '_partial/modal/_modal_confirmer_reload_page.html.twig' with {
+    messageConfirmation: "Voulez-vous vraiment approuver ?"|e,
+    submit: true,
+    action: 'Approuver',
+    classeAction: classeAction|default('success'),
+    urlFormulaire: urlFormulaire|default,
+    urlMajContent: urlMajContent|default,
+} only %}

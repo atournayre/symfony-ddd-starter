@@ -1,0 +1,8 @@
+{% include '_partial/modal/_modal_confirmer.html.twig' with {
+    messageConfirmation: "Voulez-vous vraiment envoyer cet élément à la corbeille ?"|e,
+    submit: true,
+    action: 'Envoyer à la corbeille',
+    classeAction: classeAction|default('danger'),
+    urlFormulaire: urlFormulaire|default,
+    urlMajContent: urlMajContent|default,
+} only %}
