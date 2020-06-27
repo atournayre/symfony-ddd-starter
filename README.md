@@ -5,10 +5,8 @@
 * Docker-compose
 * Node
 
-## Container
-
-
 ## Install
+
 ```sh
 docker-compose exec php composer install
 docker-compose exec php yarn
@@ -23,13 +21,13 @@ docker-compose exec php php bin/console doctrine:fixtures:load
 ### Lancer docker
 
 ```sh
-   docker-compose up
+docker-compose up
 ```
 
 ### Se connecter à un conteneur
 
 ```sh
-   docker-compose exec [nom_conteneur] sh
+docker-compose exec [nom_conteneur] sh
 ```
 
 ### Compilation JS et CSS
@@ -38,4 +36,5 @@ docker-compose exec php php bin/console doctrine:fixtures:load
 docker-compose exec php yarn install --dev
 ```
 ### URL
+
 http://localhost
