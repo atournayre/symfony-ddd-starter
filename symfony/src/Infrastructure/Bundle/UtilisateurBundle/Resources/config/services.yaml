@@ -1,0 +1,20 @@
+services:
+  Symfony\Component\Security\Http\Authentication\AuthenticationUtils:
+    class: Symfony\Component\Security\Http\Authentication\AuthenticationUtils
+    arguments:
+      - '@Symfony\Component\HttpFoundation\RequestStack'
+
+  App\Infrastructure\Bundle\UtilisateurBundle\Security\LoginFormAuthenticator:
+    class: App\Infrastructure\Bundle\UtilisateurBundle\Security\LoginFormAuthenticator
+    arguments:
+      - '@Doctrine\ORM\EntityManagerInterface'
+      - '@Symfony\Component\Routing\Generator\UrlGeneratorInterface'
+      - '@Symfony\Component\Security\Csrf\CsrfTokenManagerInterface'
+      - '@Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface'
+      - '@Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface'
+
+  Aroban\Bundle\UtilisateurBundle\Controller\:
+    resource: '../../Controller/*'
+    arguments:
+      - '@Symfony\Component\Security\Http\Authentication\AuthenticationUtils'
+    tags: ['controller.service_arguments']
