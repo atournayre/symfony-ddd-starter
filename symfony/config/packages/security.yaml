@@ -1,14 +1,41 @@
+parameters:
+    # Nom des chemins a utiliser pour les redirections
+    redirect.login: accueil.front
+    redirect.logout: index
+    redirect.enregistrer: index
+    redirect.mdp.oublie.email.inconnu: index
+    redirect.mdp.oublie.erreur.token: index
+    redirect.mdp.oublie: index
+    redirect.reset.mdp: index
+
 security:
+    encoders:
+        App\Domain\Entity\Utilisateur\Utilisateur:
+            algorithm: auto
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        app_user_provider:
+            entity:
+                class: App\Domain\Entity\Utilisateur\Utilisateur
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: lazy
-            provider: users_in_memory
+            anonymous: true
+            guard:
+                authenticators:
+                    - App\Infrastructure\Bundle\UtilisateurBundle\Security\LoginFormAuthenticator
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 2592000
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: app_login
+            access_denied_handler: App\Infrastructure\Service\Security\AccesDeniedHandler
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
